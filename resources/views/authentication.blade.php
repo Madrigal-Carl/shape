@@ -1,4 +1,4 @@
-<x-default :title="'Teacher/Admin Login'">
+<x-default :title="'Login Page'">
     <div class="font-poppins text-heading-dark w-dvw h-dvh bg-cover bg-no-repeat flex items-center justify-center"
         style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('images/login-bg.png') }}');">
         <!-- Login -->
@@ -12,10 +12,10 @@
             <!-- Inputs -->
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <label for="">Email</label>
+                    <label for="">Username</label>
                     <input
                         class="text-sm bg-white py-1.5 px-3 rounded-xl outline-none border-2 border-white focus:border-amber-600"
-                        type="text" placeholder="Enter your Email" />
+                        type="text" placeholder="Enter your Username" />
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="">Password</label>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Account;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['role.redirect'])->group(function () {
