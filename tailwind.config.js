@@ -22,7 +22,7 @@ export default {
         'blue-button': '#247bff',
         'card': '#f8f8f8',
         'lime': '#1ec515',
-        'yellow-orange': '#ffb120',
+        'yellowOrange': '#ffb120',
         'danger': '#ed234f',
         'active': '#7adb37',
 
@@ -33,6 +33,9 @@ export default {
         'avocado-400': 'oklch(0.92 0.19 114.08)',
         'avocado-500': 'oklch(0.84 0.18 117.33)',
         'avocado-600': 'oklch(0.53 0.12 118.34)',
+      },
+      boxShadow: {
+        'xl/35': '0 20px 50px rgba(36,123,255,0.35)',
       },
       transitionTimingFunction: {
         fluid: 'cubic-bezier(0.3, 0, 0, 1)',

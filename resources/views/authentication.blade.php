@@ -1,4 +1,4 @@
-<x-default>
+<x-default :title="'Teacher/Admin Login'">
     <div class="font-poppins text-heading-dark w-dvw h-dvh bg-cover bg-no-repeat flex items-center justify-center"
         style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('images/login-bg.png') }}');">
         <!-- Login -->
