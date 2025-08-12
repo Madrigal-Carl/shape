@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @vite('resources/css/app.css')
     <title>Laravel</title>
+    @livewireStyles
 </head>
 
 <body>
     {{ $slot }}
+    @livewireScripts
 </body>
 
 </html>
