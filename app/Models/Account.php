@@ -52,10 +52,6 @@ class Account extends FModel
     */
     protected $fieldTypes = [];
 
-    protected $hidden = [
-        'password',
-    ];
-
     protected static function boot()
     {
         parent::boot();

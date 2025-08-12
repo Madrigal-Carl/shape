@@ -1,19 +1,12 @@
 <?php
 
-use App\Models\Account;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RouteController;
 
 Route::middleware(['role.redirect'])->group(function () {
-    Route::get('/', function () {
-        return view('authentication');
-    });
+    Route::get('/', [RouteController::class, 'authentication'])->name('authentication');
 
-    Route::get('/instructor', function () {
-        return view('instructor.dashboard');
-    });
+    Route::get('/instructor',[RouteController::class, 'instructorPanel'])->name('instructor.panel');
 
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/admin', [RouteController::class, 'adminPanel'])->name('admin.panel');
 });
