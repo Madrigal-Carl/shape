@@ -39,7 +39,8 @@ class Authentication extends Component
             return notyf()->position('x', 'center')->position('y', 'top')->error('Student accounts cannot log in here.');
         }
 
-        if(FAuth::user()->role === 'instructor' && FAuth::user()->instructor()->status !== 'active'){
+        if(FAuth::user()->role === 'instructor'){
+            //  && FAuth::user()->instructor()->status !== 'active'
             return notyf()->position('x', 'center')->position('y', 'top')->error('You cannot login because your account is '.FAuth::user()->status);
         }
         request()->session()->regenerate();
