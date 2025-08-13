@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace App\FModels;
 
 use Roddy\FirestoreEloquent\Facade\FModel;
 use Roddy\FirestoreEloquent\Firestore\Eloquent\Traits\FRelations;
 
-class LearnersProfile extends FModel
+class Instructor extends FModel
 {
     use FRelations;
     /**
     * Name of your firestore collection
     */
-    protected $collection = 'learners_profiles';
+    protected $collection = 'instructors';
 
     /**
     * The primary key of the model/collection
     */
-    protected $primaryKey = 'learners_profile_id';
+    protected $primaryKey = 'instructor_id';
 
     /**
     * The fillable property takes care of defining which fields are
@@ -24,11 +24,17 @@ class LearnersProfile extends FModel
     * Fillable property should ba an array. e.g ['id', 'age', 'name']
     */
     protected $fillable = [
-        'student_id',
-        'lrn',
-        'grade_level',
-        'disability_type',
-        'support_need',
+        'license_number',
+        'image_src',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'sex',
+        'birth_date',
+        'specialization',
+        'status',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -53,23 +59,13 @@ class LearnersProfile extends FModel
     */
     protected $fieldTypes = [];
 
-    protected static function boot()
+    public function account()
     {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $now = now()->toDateTimeString();
-            $model->created_at = $now;
-            $model->updated_at = $now;
-        });
-
-        static::updating(function ($model) {
-            $model->updated_at = now()->toDateTimeString();
-        });
+        return $this->fHasOne(Account::class, 'user_id', 'instructor_id');
     }
 
-    public function student()
+    public function address()
     {
-        return $this->fbelongsTo(Student::class, 'student_id', 'student_id');
+        return $this->fHasOne(Address::class,'owner_id', 'instructor_id');
     }
 }

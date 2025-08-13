@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\FModels;
 
 use Roddy\FirestoreEloquent\Facade\FModel;
 use Roddy\FirestoreEloquent\Firestore\Eloquent\Traits\FRelations;
@@ -31,6 +31,8 @@ class Student extends FModel
         'sex',
         'birth_date',
         'status',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -54,21 +56,6 @@ class Student extends FModel
     * fieldTypes property should ba an array. e.g ['name' => 'string', 'age' => 'int', 'date' => 'date']
     */
     protected $fieldTypes = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $now = now()->toDateTimeString();
-            $model->created_at = $now;
-            $model->updated_at = $now;
-        });
-
-        static::updating(function ($model) {
-            $model->updated_at = now()->toDateTimeString();
-        });
-    }
 
     public function account()
     {

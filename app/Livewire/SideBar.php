@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Account;
 use Livewire\Component;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 use Roddy\FirestoreEloquent\Auth\FAuth;
 

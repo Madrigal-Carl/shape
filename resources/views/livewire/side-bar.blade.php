@@ -3,15 +3,26 @@
     <img src="{{ asset('images/main-logo.png') }}" class="w-32" alt="" />
 
     <!-- Account Info -->
+    @php
+        $account = App\FModels\Account::find(fauth()->id());
+        if ($account->role === 'instructor') {
+            $user = $account->instructor();
+        } elseif ($account->role === 'admin') {
+            $user = $account->admin();
+        } else {
+            $user = null;
+        }
+    @endphp
     <div class="flex flex-col gap-2 items-center">
         <img src="{{ asset('images/profile.jpg') }}" class="w-24 rounded-full" alt="" />
         <!-- Profile Pic -->
         <div class="flex flex-col items-center">
             <p class="text-lg">
-                <span class="font-semibold leading-none">Geroleo, </span>Dave
+                <span class="font-semibold leading-none">{{ $user->last_name }}, </span>{{ $user->first_name }}
             </p>
             <!-- Fullname -->
-            <small class="leading-none text-paragraph">Sned Teacher</small>
+            <small
+                class="leading-none text-paragraph">{{ fauth()->user()->role === 'instructor' ? 'Sned Teacher' : 'Sned Admin' }}</small>
             <!-- Specializzation -->
         </div>
     </div>

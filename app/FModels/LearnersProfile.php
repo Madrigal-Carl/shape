@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace App\FModels;
 
 use Roddy\FirestoreEloquent\Facade\FModel;
 use Roddy\FirestoreEloquent\Firestore\Eloquent\Traits\FRelations;
 
-class Guardian extends FModel
+class LearnersProfile extends FModel
 {
     use FRelations;
     /**
     * Name of your firestore collection
     */
-    protected $collection = 'guardians';
+    protected $collection = 'learners_profiles';
 
     /**
     * The primary key of the model/collection
     */
-    protected $primaryKey = 'guardian_id';
+    protected $primaryKey = 'learners_profile_id';
 
     /**
     * The fillable property takes care of defining which fields are
@@ -25,11 +25,12 @@ class Guardian extends FModel
     */
     protected $fillable = [
         'student_id',
-        'first_name',
-        'middle_name',
-        'last_name',
-        'email',
-        'phone_number',
+        'lrn',
+        'grade_level',
+        'disability_type',
+        'support_need',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -54,23 +55,8 @@ class Guardian extends FModel
     */
     protected $fieldTypes = [];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $now = now()->toDateTimeString();
-            $model->created_at = $now;
-            $model->updated_at = $now;
-        });
-
-        static::updating(function ($model) {
-            $model->updated_at = now()->toDateTimeString();
-        });
-    }
-
     public function student()
     {
-        return $this->fbelongsTo(Student::class, 'student_id', 'guardian_id');
+        return $this->fbelongsTo(Student::class, 'student_id', 'student_id');
     }
 }
