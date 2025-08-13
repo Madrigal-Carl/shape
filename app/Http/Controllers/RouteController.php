@@ -13,11 +13,11 @@ class RouteController extends Controller
 
     public function instructorPanel()
     {
-        return view('instructor.dashboard');
+        return view('instructor.instructor_panel');
     }
 
     public function adminPanel()
     {
-        return view('admin.dashboard');
+        return view('admin.admin_panel');
     }
 }
