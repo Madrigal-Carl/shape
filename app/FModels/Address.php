@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\FModels;
 
 use Roddy\FirestoreEloquent\Facade\FModel;
 use Roddy\FirestoreEloquent\Firestore\Eloquent\Traits\FRelations;
@@ -11,7 +11,7 @@ class Address extends FModel
     /**
     * Name of your firestore collection
     */
-    protected $collection = 'addresss';
+    protected $collection = 'address';
 
     /**
     * The primary key of the model/collection
@@ -29,6 +29,8 @@ class Address extends FModel
         'municipality',
         'barangay',
         'type',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -53,21 +55,6 @@ class Address extends FModel
     */
     protected $fieldTypes = [];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $now = now()->toDateTimeString();
-            $model->created_at = $now;
-            $model->updated_at = $now;
-        });
-
-        static::updating(function ($model) {
-            $model->updated_at = now()->toDateTimeString();
-        });
-    }
-
     public function instructor()
     {
         return $this->fbelongsTo(Instructor::class, 'instructor_id', 'address_id');
@@ -75,6 +62,6 @@ class Address extends FModel
 
     public function student()
     {
-        return $this->fbelongsTo(Student::class, 'student_id', 'address_id');
+        return $this->fbelongsTo(Student::class, 'student_id', 'instructor_id');
     }
 }

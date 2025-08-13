@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace App\FModels;
 
 use Roddy\FirestoreEloquent\Facade\FModel;
 use Roddy\FirestoreEloquent\Firestore\Eloquent\Traits\FRelations;
 
-class Instructor extends FModel
+class Admin extends FModel
 {
     use FRelations;
     /**
     * Name of your firestore collection
     */
-    protected $collection = 'instructors';
+    protected $collection = 'admins';
 
     /**
     * The primary key of the model/collection
     */
-    protected $primaryKey = 'instructor_id';
+    protected $primaryKey = 'admin_id';
 
     /**
     * The fillable property takes care of defining which fields are
@@ -24,15 +24,11 @@ class Instructor extends FModel
     * Fillable property should ba an array. e.g ['id', 'age', 'name']
     */
     protected $fillable = [
-        'license_number',
-        'image_src',
         'first_name',
         'middle_name',
         'last_name',
-        'sex',
-        'birth_date',
-        'specialization',
-        'status',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -57,28 +53,8 @@ class Instructor extends FModel
     */
     protected $fieldTypes = [];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $now = now()->toDateTimeString();
-            $model->created_at = $now;
-            $model->updated_at = $now;
-        });
-
-        static::updating(function ($model) {
-            $model->updated_at = now()->toDateTimeString();
-        });
-    }
-
     public function account()
     {
-        return $this->fHasOne(Account::class, 'user_id', 'instructor_id');
-    }
-
-    public function address()
-    {
-        return $this->fHasOne(Address::class,'owner_id', 'instructor_id');
+        return $this->fHasOne(Account::class, 'user_id', 'admin_id');
     }
 }

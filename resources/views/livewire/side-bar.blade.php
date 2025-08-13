@@ -3,15 +3,26 @@
     <img src="{{ asset('images/main-logo.png') }}" class="w-32" alt="" />
 
     <!-- Account Info -->
+    @php
+        $account = App\FModels\Account::find(fauth()->id());
+        if ($account->role === 'instructor') {
+            $user = $account->instructor();
+        } elseif ($account->role === 'admin') {
+            $user = $account->admin();
+        } else {
+            $user = null;
+        }
+    @endphp
     <div class="flex flex-col gap-2 items-center">
         <img src="{{ asset('images/profile.jpg') }}" class="w-24 rounded-full" alt="" />
         <!-- Profile Pic -->
         <div class="flex flex-col items-center">
             <p class="text-lg">
-                <span class="font-semibold leading-none">Geroleo, </span>Dave
+                <span class="font-semibold leading-none">{{ $user->last_name }}, </span>{{ $user->first_name }}
             </p>
             <!-- Fullname -->
-            <small class="leading-none text-paragraph">Sned Teacher</small>
+            <small
+                class="leading-none text-paragraph">{{ fauth()->user()->role === 'instructor' ? 'Sned Teacher' : 'Sned Admin' }}</small>
             <!-- Specializzation -->
         </div>
     </div>
@@ -31,10 +42,32 @@
             <span class="material-symbols-rounded">settings</span>
             <p class="">Settings</p>
         </a>
-        <a
+        <a wire:click="logoutConfirm"
             class="cursor-pointer hover:bg-blue-button hover:text-white flex gap-2 active:bg-blue-button px-8 py-4 active:text-white rounded-xl">
             <span class="material-symbols-rounded">door_back</span>
             <p class="">Logout</p>
         </a>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('show-logout-confirm', () => {
+            Swal.fire({
+                title: 'Are you sure you want to logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Logout',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#dc3545',
+                customClass: {
+                    title: 'swal-title',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('logout');
+                }
+            });
+        });
+    });
+</script>

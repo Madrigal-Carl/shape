@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script type="module" src="{{ asset('js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
