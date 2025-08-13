@@ -3,11 +3,14 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Illuminate\Http\Request;
+use Roddy\FirestoreEloquent\Auth\FAuth;
 
 class SideBar extends Component
 {
     public $sideBarItems;
     public $activeSideBar;
+    public $listeners = ["logout" => "logout"];
 
     public function mount($sideBarItems = [])
     {
@@ -21,6 +24,19 @@ class SideBar extends Component
         $this->activeSideBar = $activatedSideBar;
         session(['activeSideBar' => $activatedSideBar]);
         $this->dispatch('setAcivatedSideBar', $activatedSideBar);
+    }
+
+    public function logout(Request $request)
+    {
+        FAuth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
+    public function logoutConfirm()
+    {
+        $this->dispatch('show-logout-confirm');
     }
 
     public function render()

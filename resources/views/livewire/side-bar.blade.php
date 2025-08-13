@@ -31,10 +31,32 @@
             <span class="material-symbols-rounded">settings</span>
             <p class="">Settings</p>
         </a>
-        <a
+        <a wire:click="logoutConfirm"
             class="cursor-pointer hover:bg-blue-button hover:text-white flex gap-2 active:bg-blue-button px-8 py-4 active:text-white rounded-xl">
             <span class="material-symbols-rounded">door_back</span>
             <p class="">Logout</p>
         </a>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('show-logout-confirm', () => {
+            Swal.fire({
+                title: 'Are you sure you want to logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Logout',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#dc3545',
+                customClass: {
+                    title: 'swal-title',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('logout');
+                }
+            });
+        });
+    });
+</script>

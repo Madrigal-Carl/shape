@@ -28,23 +28,23 @@ class Authentication extends Component
             ]);
         } catch (ValidationException $e) {
             $message = $e->validator->errors()->first();
-            return notyf()->error($message);
+            return $this->dispatch('swal-toast', icon : 'error', title : $message);
         }
 
         if (!FAuth::attempt(['username' => $this->username, 'password' => $this->password])) {
-            return notyf()->position('x', 'center')->position('y', 'top')->error('Invalid credentials.');
+            return $this->dispatch('swal-toast', icon : 'error', title : 'Invalid credentials.');
         }
 
         if(FAuth::user()->role === 'student'){
-            return notyf()->position('x', 'center')->position('y', 'top')->error('Student accounts cannot log in here.');
+            return $this->dispatch('swal-toast', icon : 'error', title : 'Student accounts cannot log in here.');
         }
 
-        if(FAuth::user()->role === 'instructor'){
-            //  && FAuth::user()->instructor()->status !== 'active'
-            return notyf()->position('x', 'center')->position('y', 'top')->error('You cannot login because your account is '.FAuth::user()->status);
-        }
+        // if(FAuth::user()->role === 'instructor' && FAuth::user()->instructor()->status !== 'active'){
+        //     return notyf()->position('x', 'center')->position('y', 'top')->error('You cannot login because your account is '.FAuth::user()->status);
+        // }
+
         request()->session()->regenerate();
-        notyf()->position('x', 'center')->position('y', 'top')->success('You\'re now signed in.');
+        $this->dispatch('swal-toast', icon : 'success', title : 'You\'ve successfully logged in.');
         return redirect()->route('authentication');
     }
 
